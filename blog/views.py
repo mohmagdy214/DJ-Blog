@@ -11,8 +11,9 @@ class PostList(ListView):    # template : post_list
 
 
 
-class PostDetail(DetailView):
-    model = Post
+def post_detail(request, pk):
+    data = Post.objects.get(id=pk)
+    return render(request, 'blog/post_detail.html', {'post':data})
 
 
 class PostCreate(CreateView):
