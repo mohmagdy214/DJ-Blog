@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'taggit',
     'django_summernote',
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
