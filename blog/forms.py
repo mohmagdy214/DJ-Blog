@@ -6,9 +6,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ("author",)
-        widgets = {
-            'content': SummernoteWidget(),
-        }
 
         
 class CommentForm(forms.ModelForm):
