@@ -17,7 +17,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
       <form class="d-flex" role="search">
-        <a class="btn btn-outline-success" href="/blog/new">Create New Post</a>
+        <a class="btn btn-outline-info" href="/blog/new">Create New Post</a>
       </form>
     </nav>
 
@@ -36,9 +36,10 @@
           </ul>
 
           <p>{{post.content|safe}}</p>
-
+    <a class="btn btn-outline-success" href="/blog/{{post.id}}/edit">Edit Post</a>
+    <a class="btn btn-outline-danger" href="/blog/{{post.id}}/delete ">Delete Post</a>
           <hr>
-          <h3>comments</h3>
+          <h3>Comments</h3>
           <ul>
               {% for comment in post_comments %}
                   <li>
@@ -47,11 +48,11 @@
               {% endfor %}
           </ul>
           <hr>
-          <h3>add new comment</h3>
+          <h3>Add New Comment</h3>
           <form method="post">
-              {% csrf_token %}
-              {{form}}
-              <input type="submit" value="add new comment">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="Add New Comment" %}
           </form>
         </div>
       </div>
