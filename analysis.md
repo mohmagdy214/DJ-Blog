@@ -1,6 +1,6 @@
 
 
-- post
+*post*
         - title
         - author
         - content
@@ -9,8 +9,8 @@
         - create_date
         - draft
 
-- comment 
+*comment*
         - author
         - comment
         - post
-        
+        - created_at
