@@ -1,13 +1,32 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
-from .forms import PostForm, CommentForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .forms import CommentForm, RegisterForm
+from django.views.generic import  CreateView, UpdateView, DeleteView
+from django.contrib.auth import  login 
+from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 
 
 
-class PostList(ListView):    # template : post_list
-    model = Post             # contexe  : post_list , object_list
+def sign_up(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/login')
+    else:
+        form = RegisterForm()
+    return render(request, 'registration/sign_up.html', {'form':form})
+
+
+
+@login_required(login_url='/login')
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/post_list.html', {'posts':posts})
 
 
 
