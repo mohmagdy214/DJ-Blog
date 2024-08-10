@@ -8,9 +8,19 @@
           <div class="card">
             <img src="{{post.image.url}}" style="height:650px; width:855px;" class="card-img-top" alt="...">
             <div class="card-body">
+              {% if user == post.author %}
+              <form method='post'>
+                {% csrf_token %}
+                <button type='submit' class='btn btn-outline-danger mb-3' name='post_delete_id' value="{{post.id}}">Delete</button>
+                <a href="/blog/{{post.id}}/edit" class='btn btn-outline-warning mb-3' name='post_edit_id'>Edit</a>
+              </form>
+              {% endif %}
               <h5 class="card-title">{{post}}</h5> 
               <p class="card-text">{{post.content|safe|truncatewords:50}}</p>
               <a href="/blog/{{post.id}}" class="btn btn-primary">Read More</a>
+              {% if user == post.author %}
+              <div class='d-flex justify-content-end'><strong>@{{user}}</strong></div>
+              {% endif %}
             </div>
           </div>
         </div>

@@ -16,7 +16,8 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-      <div>
+    <a class="btn btn-outline-info" href="/blog/new">Create New Post</a>
+    <div>
         <ul class='navbar-nav'>
           {% if user.is_authenticated %}
           <li class='nav-item'>
@@ -25,12 +26,11 @@
           </li>
             {% else %}
           <li class='nav-item'>
-            <a class='nav-link' href="/login">Login</a>
+            <a class='btn btn-outline-success' href="/login">Login</a>
           </li>
             {% endif %}
           </ul>
         </div>
-        <a class="btn btn-outline-info" href="/blog/new">Create New Post</a>
     </nav>
     {% block content %}
 

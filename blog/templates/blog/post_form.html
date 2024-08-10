@@ -2,20 +2,19 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <div class="container mt-5">
-      <div class="row pb-5">
-        <div class="col-lg-8 mx-auto">
-            <h1>New Post</h1>
-            <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% bootstrap_button button_type="submit" content="Add New Post" %}
-            </form>
-        </div>
-      </div>
+<div class="container mt-5">
+  <div class="row pb-5">
+    <div class="col-lg-8 mx-auto">
+        <h1>Add post</h1>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Add Post" %}
+        </form>
     </div>
-
-    {% endblock content %}
+  </div>
+</div>
+{% endblock content %}
 
 
 

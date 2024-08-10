@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
-from .forms import CommentForm, RegisterForm
-from django.views.generic import  CreateView, UpdateView, DeleteView
+from .forms import PostForm, CommentForm, RegisterForm
+from django.views.generic import   UpdateView, DeleteView
 from django.contrib.auth import  login 
 from django.contrib.auth.decorators import login_required
 
@@ -26,6 +26,12 @@ def sign_up(request):
 @login_required(login_url='/login')
 def post_list(request):
     posts = Post.objects.all()
+    if request.method == 'POST':
+        post_id = request.POST.get('post_delete_id')
+        post = Post.objects.get(id=post_id)
+        if post and post.author == request.user:
+            post.delete()
+
     return render(request, 'blog/post_list.html', {'posts':posts})
 
 
@@ -45,10 +51,20 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post':data, 'form':form, 'post_comments':post_comments})
 
 
-class PostCreate(CreateView):
-    model = Post
-    fields = ['title','content','image','tags','create_date','draft','author']
-    success_url = '/blog'
+
+@login_required(login_url='/login')
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            my_form = form.save(commit=False)
+            my_form.author = request.user
+            my_form.save()
+            return redirect('/blog')
+    else:
+        form = PostForm()
+    return render(request, 'blog/post_form.html', {'form':form})
+
 
 
 class PostUpdate(UpdateView):
@@ -57,7 +73,3 @@ class PostUpdate(UpdateView):
     success_url = '/blog'
     template_name = 'blog/edit_post.html'
 
-
-class PostDelete(DeleteView):
-    model = Post    
-    success_url = '/blog'
