@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
 from .forms import PostForm, CommentForm, RegisterForm
-from django.views.generic import   UpdateView, DeleteView
+from django.views.generic import UpdateView
 from django.contrib.auth import  login 
 from django.contrib.auth.decorators import login_required
 
